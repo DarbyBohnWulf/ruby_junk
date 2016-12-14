@@ -1,18 +1,16 @@
 class Trader
-  def self.stock_tracker(prices)
-    ordered_prices = Hash.new
-    count = 1
-    prices.each {|p|
-      ordered_prices[count] = p
-      count+= 1
-    }
-    buying_days = prices[0,-2].sort
-    selling_days = prices[1,-1].sort
-    if ordered_prices.key buying_days[0] < ordered_prices.key selling_days[-1]
-      final_prices = [buying_days.first,selling_days.last]
-    elsif ordered_prices.key buying_days. > ordered_prices.key selling_days.last
-
+  def self.stock_picker(prices)
+    buying_day = prices[0]
+    selling_day = prices.sort.last
+    prices.each do |p|
+      if prices.index(p) > prices.index(buying_day) && p > selling_day
+        selling_day = p
+      elsif prices.index(p) < prices.index(selling_day) && p < buying_day
+        buying_day = p
+      else
+        nil
+      end
     end
-    final_prices
+    [buying_day,selling_day]
   end
 end
