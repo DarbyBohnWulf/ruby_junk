@@ -38,7 +38,7 @@ module Enumerable
       until !yield self[matches]
         matches += 1
       end
-      :matches == self.length ? true : false    else
+      matches == self.length ? true : false    else
       self.my_select {|s| !s.nil?} == self ? true : false
     end
   end
