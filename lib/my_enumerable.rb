@@ -21,7 +21,7 @@ module Enumerable
     if block_given?
       result = []
       self.my_each do |s|
-        if block.call(s)
+        if yield s
           result.push s
         else
         end
@@ -33,9 +33,12 @@ module Enumerable
   end
 
   def my_all?
+    matches = 0
     if block_given?
-      self.my_select(yield) == self ? true : false
-    else
+      until !yield self[matches]
+        matches += 1
+      end
+      :matches == self.length ? true : false    else
       self.my_select {|s| !s.nil?} == self ? true : false
     end
   end

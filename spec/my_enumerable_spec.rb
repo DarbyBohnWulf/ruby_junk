@@ -37,7 +37,7 @@ describe "#my_select" do
     end
   end
 
-  context "when called with a block" do
+  context "when cathelled with a block" do
     it "collects the original members based on the given block"  do
       expect {|b| array.my_select(&b)}.to yield_successive_args(1,2,3)
       expect(array.my_select {|s| s % 2 == 0}).to eq([2])
@@ -46,9 +46,10 @@ describe "#my_select" do
 end
 
 describe "#my_all?" do
-  context "when called on a collection w/o negative members" do
-    it "returns true"  do
+  context "when called on a collection" do
+    it "verifies conformity to the  given block"  do
       expect(array.my_all?).to be(true)
+      expect(array.my_all? {|s| s % 2 == 0}).to be(false)
     end
   end
 end
